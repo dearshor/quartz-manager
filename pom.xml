@@ -13,18 +13,23 @@
 				<artifactId>slf4j-api</artifactId>
 				<version>1.6.6</version>
 			</dependency>
-			
+
 			<dependency>
-					<groupId>org.slf4j</groupId>
-					<artifactId>jcl-over-slf4j</artifactId>
-					<version>1.6.6</version>
-				</dependency>
-			
+				<groupId>org.slf4j</groupId>
+				<artifactId>jcl-over-slf4j</artifactId>
+				<version>1.6.6</version>
+			</dependency>
+
 			<dependency>
-					<groupId>ch.qos.logback</groupId>
-					<artifactId>logback-classic</artifactId>
-					<version>1.0.7</version>
-				</dependency>
+				<groupId>ch.qos.logback</groupId>
+				<artifactId>logback-classic</artifactId>
+				<version>1.0.7</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.geronimo.specs</groupId>
+				<artifactId>geronimo-servlet_3.0_spec</artifactId>
+				<version>1.0</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
@@ -41,8 +46,19 @@
 			</exclusions>
 		</dependency>
 		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.geronimo.specs</groupId>
+			<artifactId>geronimo-servlet_3.0_spec</artifactId>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 
@@ -53,7 +69,7 @@
 			<url>http://repo.springsource.org/release</url>
 		</repository>
 	</repositories>
-	
+
 	<properties>
 		<spring.version>3.1.2.RELEASE</spring.version>
 	</properties>

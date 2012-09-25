@@ -14,7 +14,7 @@ public class DispatcherServletInitializer implements WebApplicationInitializer {
 	public void onStartup(ServletContext servletContext)
 			throws ServletException {
 		AnnotationConfigWebApplicationContext appContext = new AnnotationConfigWebApplicationContext();
-		appContext.register(AppConfig.class);
+		appContext.register(AppConfigQuartz.class);
 
 		Dynamic servlet = servletContext.addServlet("main", new DispatcherServlet(appContext));
 		servlet.addMapping("/");

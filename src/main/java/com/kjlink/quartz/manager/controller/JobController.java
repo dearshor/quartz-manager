@@ -54,7 +54,7 @@ public class JobController {
 	}
 
 	@RequestMapping(value = "remove/{groupName}/{triggerName}", method = RequestMethod.GET)
-	public void remove(String groupName, String triggerName) {
+	public void remove(@PathVariable String groupName, @PathVariable String triggerName) {
 		// TODO Auto-generated method stub
 		scheduler.unscheduleJob(triggerName, groupName);
 	}

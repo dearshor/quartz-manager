@@ -9,48 +9,54 @@ import org.quartz.Scheduler;
 import org.quartz.Trigger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.condition.ConsumesRequestCondition;
 
 @Controller
+@RequestMapping("/schedule/")
 public class JobController {
 
-	private @Autowired
+	@Autowired
 	@Qualifier("quartzScheduler")
-	Scheduler scheduler;
+	private 	Scheduler scheduler;
 
-	private @Autowired
-	JobDetail jobDetail;
+	private @Autowired JobDetail jobDetail;
 
+	@RequestMapping(value = "add", method = RequestMethod.POST)
 	public void add() {
 		scheduler.addJob(jobDetail, true);
 	}
 
-	@RequestMapping(consumes = "application/json" )
-	@ResponseBody 
-	public List<Trigger> query() {
+	@RequestMapping(value = "query/{jobGroup}/{jobName}", method = RequestMethod.GET, consumes = "application/json")
+	@ResponseBody
+	public List<Trigger> query(@PathVariable String jobName, @PathVariable String jobGroup) {
 		Trigger[] triggersOfJob = scheduler.getTriggersOfJob(
-				jobDetail.getName(), Scheduler.DEFAULT_GROUP);
+				jobName, jobGroup);
 		List<Trigger> trigList = Arrays.asList(triggersOfJob);
 		return trigList;
 	}
 
-	public void pause() {
-		// TODO Auto-generated method stub
-
+	@RequestMapping(value = "pause/{groupName}/{triggerName}", method = RequestMethod.GET)
+	public void pause(@PathVariable String groupName, @PathVariable String triggerName) {
+		scheduler.pauseTrigger(triggerName, groupName);
 	}
 
-	public void resume() {
+	@RequestMapping(value = "resume/{groupName}/{triggerName}", method = RequestMethod.GET)
+	public void resume(@PathVariable String groupName, @PathVariable String triggerName) {
 		// TODO Auto-generated method stub
-
+		scheduler.resumeTrigger(triggerName, groupName);
 	}
 
-	public void remove() {
+	@RequestMapping(value = "remove/{groupName}/{triggerName}", method = RequestMethod.GET)
+	public void remove(String groupName, String triggerName) {
 		// TODO Auto-generated method stub
-
+		scheduler.unscheduleJob(triggerName, groupName);
 	}
 
 }

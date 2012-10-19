@@ -2,6 +2,7 @@ package com.kjlink.quartz.manager.config;
 
 import javax.sql.DataSource;
 
+import org.quartz.CronTrigger;
 import org.quartz.JobDetail;
 import org.quartz.Trigger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,10 +32,11 @@ public class AppConfigQuartz {
 		return jobDetailBean.getObject();
 	}
 	
-	public @Bean CronTriggerBean cronTrigger() {
-		CronTriggerBean cronTriggerBean = new CronTriggerBean();
-		cronTriggerBean.
-		return cronTriggerBean;
+	public @Bean CronTrigger cronTrigger() {
+		CronTrigger cronTriggerBean = (CronTrigger) new CronTriggerBean();
+		cronTriggerBean.setJobDetail(jobDetail());
+//		cronTriggerBean.setCronExpression(); // TODO 如何设置cron expression?
+		return cronTriggerBean.gett;
 	}
 	
 	public @Bean(name = "quartzScheduler")  SchedulerFactoryBean schedulerFactoryBean() {
@@ -42,6 +44,7 @@ public class AppConfigQuartz {
 		schedulerFactoryBean.setDataSource(dataSource);
 		schedulerFactoryBean.setApplicationContextSchedulerContextKey("applicationContextKey");
 		schedulerFactoryBean.setConfigLocation(new ClassPathResource("quartz.properties"));
+		schedulerFactoryBean.setTriggers(new Trigger[] {})
 		return schedulerFactoryBean;
 	}
 

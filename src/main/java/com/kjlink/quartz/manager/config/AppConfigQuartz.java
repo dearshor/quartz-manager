@@ -34,9 +34,9 @@ public class AppConfigQuartz {
 	
 	public @Bean CronTrigger cronTrigger() {
 		CronTrigger cronTriggerBean = (CronTrigger) new CronTriggerBean();
-		cronTriggerBean.setJobDetail(jobDetail());
-//		cronTriggerBean.setCronExpression(); // TODO ÈçºÎÉèÖÃcron expression?
-		return cronTriggerBean.gett;
+//		cronTriggerBean.setJobDetail(jobDetail());
+//		cronTriggerBean.setCronExpression(); // TODO ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½cron expression?
+		return cronTriggerBean;
 	}
 	
 	public @Bean(name = "quartzScheduler")  SchedulerFactoryBean schedulerFactoryBean() {
@@ -44,7 +44,7 @@ public class AppConfigQuartz {
 		schedulerFactoryBean.setDataSource(dataSource);
 		schedulerFactoryBean.setApplicationContextSchedulerContextKey("applicationContextKey");
 		schedulerFactoryBean.setConfigLocation(new ClassPathResource("quartz.properties"));
-		schedulerFactoryBean.setTriggers(new Trigger[] {})
+		schedulerFactoryBean.setTriggers(new Trigger[] {});
 		return schedulerFactoryBean;
 	}
 

@@ -33,7 +33,6 @@ public class AppConfigQuartz {
 	
 	public @Bean CronTriggerBean cronTrigger() {
 		CronTriggerBean cronTriggerBean = new CronTriggerBean();
-		cronTriggerBean.
 		return cronTriggerBean;
 	}
 	

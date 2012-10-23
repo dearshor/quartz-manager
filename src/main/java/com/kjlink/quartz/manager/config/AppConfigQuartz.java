@@ -35,7 +35,7 @@ public class AppConfigQuartz {
 	public @Bean CronTrigger cronTrigger() {
 		CronTrigger cronTriggerBean = (CronTrigger) new CronTriggerBean();
 //		cronTriggerBean.setJobDetail(jobDetail());
-//		cronTriggerBean.setCronExpression(); // TODO �������cron expression?
+//		cronTriggerBean.setCronExpression(); // TODO  how to set the 'cron expression' ?
 		return cronTriggerBean;
 	}
 	

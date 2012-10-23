@@ -6,11 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 @Configuration @ComponentScan("com.kjlink.quartz.manager")
+@PropertySource("classpath:jdbc.properties")
 public class AppConfig {
 	
 	private @Autowired Environment env;

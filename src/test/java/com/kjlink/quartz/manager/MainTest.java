@@ -1,17 +1,25 @@
 package com.kjlink.quartz.manager;
 
+import java.util.List;
+
+import junit.framework.Assert;
+
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.quartz.Trigger;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.kjlink.quartz.manager.config.AppConfig;
 import com.kjlink.quartz.manager.config.AppConfigQuartz;
+import com.kjlink.quartz.manager.controller.JobController;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ ContextConfiguration(classes = {AppConfig.class,  AppConfigQuartz.class})
 public class MainTest {
+	
+	private JobController jobController;
 	
 	/**
 	 * <p>为测试准备材料</p>
@@ -24,7 +32,8 @@ public class MainTest {
 	public @BeforeClass void setup() {}
 	
 	public @Test void testQuery() {
-		
+		 List<? extends Trigger> triggerList = jobController.query("jobName", "jobGroup");
+		 Assert.assertNotNull(triggerList);
 	}
 
 }

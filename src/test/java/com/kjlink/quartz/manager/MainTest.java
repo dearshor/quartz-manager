@@ -1,8 +1,8 @@
 package com.kjlink.quartz.manager;
 
-import java.util.List;
+import static junit.framework.Assert.assertNotNull;
 
-import junit.framework.Assert;
+import java.util.List;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -29,11 +29,14 @@ public class MainTest {
 	 * @author dearshor
 	 * @since 1.0
 	 */
-	public @BeforeClass void setup() {}
+	public @BeforeClass void setup() {
+		jobController.add();
+		
+	}
 	
 	public @Test void testQuery() {
 		 List<? extends Trigger> triggerList = jobController.query("jobName", "jobGroup");
-		 Assert.assertNotNull(triggerList);
+		 assertNotNull(triggerList);
 	}
 
 }

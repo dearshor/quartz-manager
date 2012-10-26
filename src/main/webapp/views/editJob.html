@@ -1,0 +1,53 @@
+<html>
+<head>
+	<title>编辑调度任务</title>
+	<style type="text/css">
+		form div span.field_label {
+			display: block; width: 100px; text-align: right; margin-right: 10px; float: left; vertical-align: middle
+		}
+
+		form div span.field_input {
+			display: block; width: 300px; float: left
+		}
+	</style>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+</head>
+<body>
+	<form id="jobForm">
+		<div>
+			<label >任务名</label>
+			<SPAN  /><input type="text" /></SPAN>
+		</div>
+
+		<div>
+			<label >任务组</label>
+			<SPAN ><input type="text"  /></SPAN>
+		</div>
+
+		<div>
+			<label >任务描述</label>
+			<SPAN ><input type="text"  /></SPAN>
+		</div>
+
+		<div>
+			<label>任务类型（java class）</label>
+			<SPAN ><input type="text"  /></SPAN>
+		</div>
+
+		<div>
+			<label >任务数据</label>
+			<SPAN ><input type="text"  /></SPAN>
+		</div>
+
+		<div style="text-align: right; width: 400px">
+			<input type="submit" value="保存" />
+		</div>
+	</form>	
+	<script type="text/javascript">
+		$(function() {
+			$("#jobForm div label").addClass("field_label");
+			$("#jobForm div span").addClass("field_input");
+		});
+	</script>
+</body>
+</html>

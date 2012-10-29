@@ -22,18 +22,18 @@ public class MyQuartzJobBean extends QuartzJobBean {
 
 	@Override
 	protected void executeInternal(JobExecutionContext jobexecutioncontext) throws JobExecutionException {
-		Trigger trigger = jobexecutioncontext.getTrigger();
-		String triggerName = trigger.getName();
-		logger.debug("触发器：{}", triggerName);
-		String group = trigger.getGroup();
-		logger.debug("隶属于组：{}", group);
+//		Trigger trigger = jobexecutioncontext.getTrigger();
+//		String triggerName = trigger.getName();
+//		logger.debug("触发器：{}", triggerName);
+//		String group = trigger.getGroup();
+//		logger.debug("隶属于组：{}", group);
 		
 		//根据Trigger组别调用不同的业务逻辑方法
-		if (StringUtils.equals(group, Scheduler.DEFAULT_GROUP)) {
-			simpleService.testMethod(triggerName, group);
-		} else {
-			simpleService.testMethod2(triggerName, group);
-		}
+//		if (StringUtils.equals(group, Scheduler.DEFAULT_GROUP)) {
+//			simpleService.testMethod(triggerName, group);
+//		} else {
+//			simpleService.testMethod2(triggerName, group);
+//		}
 	}
 
 }

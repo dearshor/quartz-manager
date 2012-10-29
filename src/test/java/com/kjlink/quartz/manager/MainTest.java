@@ -4,6 +4,8 @@ import static junit.framework.Assert.assertNotNull;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,13 +27,17 @@ public class MainTest {
 	 * <p>为测试准备材料</p>
 	 * <p>目前可作本测试用例的为入口方法，当启动测试用例时，spring application context 会被启动，
 	 * 然后quartz jobs也随即被启动。</p>
+	 * <p>这是junit提供的机制。</p>
 	 * 
 	 * @author dearshor
 	 * @since 1.0
 	 */
-	public @BeforeClass void setup() {
+	public @BeforeClass static void setup() {
+	}
+	
+	@PostConstruct
+	public void init() {
 		jobController.add();
-		
 	}
 	
 	public @Test void testQuery() {

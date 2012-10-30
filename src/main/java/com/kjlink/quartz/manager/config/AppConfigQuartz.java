@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.scheduling.quartz.CronTriggerBean;
+import org.springframework.scheduling.quartz.CronTriggerFactoryBean;
 import org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 
@@ -32,10 +33,10 @@ public class AppConfigQuartz {
 		return jobDetailBean.getObject();
 	}
 	
-	public @Bean CronTrigger cronTrigger() {
-		CronTrigger cronTriggerBean = (CronTrigger) new CronTriggerBean();
-//		cronTriggerBean.setJobDetail(jobDetail());
-//		cronTriggerBean.setCronExpression(); // TODO  how to set the 'cron expression' ?
+	public @Bean CronTriggerFactoryBean cronTrigger() {
+		CronTriggerFactoryBean cronTriggerBean = new CronTriggerFactoryBean();
+		cronTriggerBean.setJobDetail(jobDetail());
+		cronTriggerBean.setCronExpression(""); // TODO  how to set the 'cron expression' ?
 		return cronTriggerBean;
 	}
 	

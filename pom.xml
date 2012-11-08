@@ -151,7 +151,7 @@
 		</dependency>
 
 		<dependency>
-		    <groupId>javax.transaction</groupId>war
+		    <groupId>javax.transaction</groupId>
 		    <artifactId>jta</artifactId>
 		    <version>1.1</version>
 		    <scope>provided</scope>

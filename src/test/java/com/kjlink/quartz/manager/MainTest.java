@@ -46,9 +46,9 @@ public class MainTest {
 	}
 	
 	public @Test void testQuery() {
-		 List<? extends Trigger> triggerList = jobController.query("TestJob2", "GroupOfTestJob2");
+		 List<? extends Trigger> triggerList = jobController.query("testJob1", "testJobs");
 		 assertNotNull(triggerList);
-		 String[] jobNames = jobController.listJobNames("GroupOfTestJob2");
+		 String[] jobNames = jobController.listJobNames("testJobs");
 		 assertNotNull(jobNames);
 		 assertEquals("TestJob2", jobNames[0] );
 		 

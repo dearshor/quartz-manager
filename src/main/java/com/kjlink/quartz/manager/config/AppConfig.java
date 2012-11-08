@@ -17,7 +17,7 @@ public class AppConfig {
 	
 	private @Autowired Environment env;
 	
-	public  @Bean ComboPooledDataSource comboPooledDataSource() throws PropertyVetoException {
+	public  @Bean ComboPooledDataSource dataSource() throws PropertyVetoException {
 		ComboPooledDataSource comboPooledDataSource = new ComboPooledDataSource();
 		comboPooledDataSource.setDriverClass(env.getProperty("jdbc,driver.className"));
 		comboPooledDataSource.setJdbcUrl(env.getProperty("jdbc.url"));

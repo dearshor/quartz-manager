@@ -1,15 +1,19 @@
 package com.kjlink.quartz.manager;
 
+import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
 
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 
+import junit.framework.Assert;
+
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.quartz.Trigger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -21,6 +25,7 @@ import com.kjlink.quartz.manager.controller.JobController;
 @ ContextConfiguration(classes = {AppConfig.class,  AppConfigQuartz.class})
 public class MainTest {
 	
+	@Autowired
 	private JobController jobController;
 	
 	/**
@@ -37,12 +42,16 @@ public class MainTest {
 	
 	@PostConstruct
 	public void init() {
-		jobController.add();
+		//jobController.add();
 	}
 	
 	public @Test void testQuery() {
-		 List<? extends Trigger> triggerList = jobController.query("jobName", "jobGroup");
+		 List<? extends Trigger> triggerList = jobController.query("TestJob2", "GroupOfTestJob2");
 		 assertNotNull(triggerList);
+		 String[] jobNames = jobController.listJobNames("GroupOfTestJob2");
+		 assertNotNull(jobNames);
+		 assertEquals("TestJob2", jobNames[0] );
+		 
 	}
 
 }

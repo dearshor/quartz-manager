@@ -46,6 +46,16 @@ public class JobController {
 		}
 		return Arrays.asList(triggersOfJob);
 	}
+	
+	public String[] listJobNames(String groupName) {
+		try {
+			return scheduler.getJobNames(groupName);
+		} catch (SchedulerException e) {
+			throw new IllegalStateException(e);
+		}
+		
+		
+	}
 
 	@RequestMapping(value = "pause/{groupName}/{triggerName}", method = RequestMethod.GET)
 	public void pause(@PathVariable String groupName, @PathVariable String triggerName) {

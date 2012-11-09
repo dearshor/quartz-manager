@@ -7,3 +7,4 @@
 /.*
 /target
 *.orig
+src/main/resources/data/my_job_data_bak01.xml

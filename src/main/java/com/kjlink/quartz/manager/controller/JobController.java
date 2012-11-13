@@ -1,12 +1,13 @@
 package com.kjlink.quartz.manager.controller;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.quartz.JobDetail;
+import org.quartz.JobKey;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.quartz.Trigger;
+import org.quartz.TriggerKey;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -37,30 +38,31 @@ public class JobController {
 
 	@RequestMapping(value = "query/{jobGroup}/{jobName}", method = RequestMethod.GET, consumes = "application/json")
 	@ResponseBody
-	public List<Trigger> query(@PathVariable String jobName, @PathVariable String jobGroup) {
-		Trigger[] triggersOfJob;
+	public List<? extends Trigger> query(@PathVariable String jobName, @PathVariable String jobGroup) {
+		List<? extends Trigger> triggersOfJob;
 		try {
-			triggersOfJob = scheduler.getTriggersOfJob(jobName, jobGroup);
+			triggersOfJob = scheduler.getTriggersOfJob(new JobKey(jobName, jobGroup) );
 		} catch (SchedulerException e) {
 			throw new IllegalStateException(e);
 		}
-		return Arrays.asList(triggersOfJob);
+//		return Arrays.asList(triggersOfJob);
+		return triggersOfJob;
 	}
 	
 	public String[] listJobNames(String groupName) {
-		try {
+		/*try {
 			return scheduler.getJobNames(groupName);
 		} catch (SchedulerException e) {
 			throw new IllegalStateException(e);
-		}
+		}*/
 		
-		
+		throw new UnsupportedOperationException("该方法未实现");
 	}
 
 	@RequestMapping(value = "pause/{groupName}/{triggerName}", method = RequestMethod.GET)
 	public void pause(@PathVariable String groupName, @PathVariable String triggerName) {
 		try {
-			scheduler.pauseTrigger(triggerName, groupName);
+			scheduler.pauseTrigger(new TriggerKey( triggerName, groupName));
 		} catch (SchedulerException e) {
 			throw new IllegalStateException(e);
 		}
@@ -69,7 +71,7 @@ public class JobController {
 	@RequestMapping(value = "resume/{groupName}/{triggerName}", method = RequestMethod.GET)
 	public void resume(@PathVariable String groupName, @PathVariable String triggerName) {
 		try {
-			scheduler.resumeTrigger(triggerName, groupName);
+			scheduler.resumeTrigger(new TriggerKey( triggerName, groupName));
 		} catch (SchedulerException e) {
 			// TODO Auto-generated catch block
 			throw new IllegalStateException(e);
@@ -80,7 +82,7 @@ public class JobController {
 	public void remove(@PathVariable String groupName, @PathVariable String triggerName) {
 		// TODO Auto-generated method stub
 		try {
-			scheduler.unscheduleJob(triggerName, groupName);
+			scheduler.unscheduleJob( new TriggerKey( triggerName, groupName));
 		} catch (SchedulerException e) {
 			// TODO Auto-generated catch block
 			throw new IllegalStateException(e);

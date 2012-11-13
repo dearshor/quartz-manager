@@ -7,8 +7,6 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 
-import junit.framework.Assert;
-
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -1,5 +1,5 @@
 /* 
- * Copyright 2005 James House 
+ * Copyright 2005 - 2009 Terracotta, Inc. 
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not 
  * use this file except in compliance with the License. You may obtain a copy 
@@ -18,12 +18,14 @@
 package org.quartz.examples.example10;
 
 import java.util.Date;
+import java.util.Set;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
+import org.quartz.JobKey;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * <p>
@@ -34,7 +36,7 @@ import org.quartz.JobExecutionException;
  */
 public class SimpleJob implements Job {
 
-    private static Log _log = LogFactory.getLog(SimpleJob.class);
+    private static Logger _log = LoggerFactory.getLogger(SimpleJob.class);
 
     /**
      * Empty constructor for job initilization
@@ -52,14 +54,24 @@ public class SimpleJob implements Job {
      * @throws JobExecutionException
      *             if there is an exception while executing the job.
      */
+    @SuppressWarnings("unchecked")
     public void execute(JobExecutionContext context)
         throws JobExecutionException {
 
         // This job simply prints out its job name and the
         // date and time that it is running
-        String jobName = context.getJobDetail().getFullName();
-        _log.info("Executing job: " + jobName + " executing at " + new Date());
+        JobKey jobKey = context.getJobDetail().getKey();
+        _log.info("Executing job: " + jobKey + " executing at " + new Date() + ", fired by: " + context.getTrigger().getKey());
         
+        if(context.getMergedJobDataMap().size() > 0) {
+            Set<String> keys = context.getMergedJobDataMap().keySet();
+            for(String key: keys) {
+                String val = context.getMergedJobDataMap().getString(key);
+                _log.info(" - jobDataMap entry: " + key + " = " + val);
+            }
+        }
+        
+        context.setResult("hello");
     }
 
 }

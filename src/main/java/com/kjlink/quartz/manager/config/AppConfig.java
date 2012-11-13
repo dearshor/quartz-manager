@@ -8,7 +8,10 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 
+import com.kjlink.quartz.schema.JobSchedulingData;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 @Configuration @ComponentScan("com.kjlink.quartz.manager")
@@ -29,6 +32,13 @@ public class AppConfig {
 		comboPooledDataSource.setAcquireIncrement(Integer.valueOf( env.getProperty("cpool.acquireIncrement")));
 		comboPooledDataSource.setMaxIdleTime(Integer.valueOf(env.getProperty("cpool.maxIdleTime")));
 		return comboPooledDataSource;
+	}
+	
+	public @Bean Jaxb2Marshaller jaxb2Marshaller() {
+		Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
+		marshaller.setClassesToBeBound(JobSchedulingData.class);
+		marshaller.setSchema(new ClassPathResource("job_scheduling_data_2_0.xsd"));
+		return marshaller;
 	}
 	
 }
